@@ -1,4 +1,4 @@
-- name: Install pip and dependencies
+- name: Install pip, docker, and dependencies
   hosts: all
   become: yes
   tasks:
@@ -6,12 +6,17 @@
       apt:
         name: python3-pip
         state: present
+        update_cache: yes
 
-    - name: Install docker and docker-compose via pip
+    - name: Install docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Install docker-compose via pip3
       pip:
-        name:
-          - docker
-          - docker-compose
+        name: docker-compose
         executable: pip3
 
     - name: Run container with docker_container module
@@ -21,5 +26,3 @@
         ports:
           - "8081:8080"
         state: started
-
- 
