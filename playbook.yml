@@ -1,8 +1,9 @@
 
-- name: install wartest
+- name: Install pip, docker, and dependencies
   hosts: all
   become: yes
+  become_user: root
+  vars:
+    image: registry.gitlab.com/nadirguermah98/presentations-jenkins:complil-14
   roles:
     - wartest
-
-
