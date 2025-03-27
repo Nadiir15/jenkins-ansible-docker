@@ -1,28 +1,25 @@
-- name: Install pip, docker, and dependencies
-  hosts: all
-  become: yes
-  tasks:
-    - name: Install python3-pip
-      apt:
-        name: python3-pip
-        state: present
-        update_cache: yes
+---
+- name: Install python3-pip
+  apt:
+    name: python3-pip
+    state: present
+    update_cache: yes
 
-    - name: Install docker
-      apt:
-        name: docker.io
-        state: present
-        update_cache: yes
+- name: Install docker
+  apt:
+    name: docker.io
+    state: present
+    update_cache: yes
 
-    - name: Install docker-compose via pip3
-      pip:
-        name: docker-compose
-        executable: pip3
+- name: Install docker-compose via pip3
+  pip:
+    name: docker-compose
+    executable: pip3
 
-    - name: Run container with docker_container module
-      docker_container:
-        name: wartest
-        image: "{{ image }}"
-        ports:
-          - "8081:8080"
-        state: started
+- name: Run container with docker_container module
+  docker_container:
+    name: wartest
+    image: "{{ image }}"
+    ports:
+      - "8081:8080"
+    state: started
